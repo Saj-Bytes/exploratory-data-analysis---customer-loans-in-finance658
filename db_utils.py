@@ -2,16 +2,16 @@ import yaml
 import pandas as pd
 from sqlalchemy import create_engine
 
-#we will initialise the class and script that you will use to extract the data from the cloud
-
-def loading_data(filepath):
+def loading_credentials(filepath):
     with open(filepath, 'r') as file:
         credentials = yaml.safe_load(file)
     return credentials
 
 
-#This class will contain the methods to extract data from the RDS Database
 class RDSDatabaseConnector:
+    '''
+    Initialise connection with database
+    '''
     def __init__(self, credentials):
         self.host = credentials['RDS_HOST']
         self.password = credentials['RDS_PASSWORD']
@@ -28,11 +28,6 @@ class RDSDatabaseConnector:
         connection_string = (
             f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
         )
-
-        #  Create_engine function used from SQLAlchemy to create
-        #  an engine object
-        #  SQLAlchemy uses this to manage the connections to the DB
-        #  using connection string, it connects to the db
         self.engine = create_engine(connection_string)
         print("Engine initialised")
 
@@ -41,16 +36,11 @@ class RDSDatabaseConnector:
         '''
         extracts data from the db and returns as a df
         '''
-        #Checks if the engine is intialised
-        #engine object required to connect to the db
         if self.engine is None:
             self.initialise_engine()
 
-        #SQL query to get all data from the table
-        #SQL commands written as string in python
         query = f"SELECT * FROM {table_name}"
 
-        #use pandas to execute the query & get the data into a df
         df = pd.read_sql(query, self.engine)
         return df
 
@@ -64,22 +54,10 @@ class RDSDatabaseConnector:
         print(f"Data saved to {file_path}")
 
 
-if __name__ == "__main__": #only runs if file is ran, not when imported
-    creds = loading_data('credentials.yaml')
-    connector = RDSDatabaseConnector(creds)
-    connector.initialise_engine()
-    df = connector.extract_data('loan_payments')
-    connector.save_data(df, 'loan_payments.csv')
-    print("Data extraction and saving completed")
-
-
-
-
 def load_data_from_csv(file_path):
     '''
     Load data from local csv file into pandas df
     '''
-
     df = pd.read_csv(file_path)
     print(f"Data shape: {df.shape}")
 
@@ -87,8 +65,17 @@ def load_data_from_csv(file_path):
 
     return df
 
-if __name__ == "__main__":
+
+if __name__ == "__main__": 
+    creds = loading_credentials('credentials.yaml')
+    connector = RDSDatabaseConnector(creds)
+    connector.initialise_engine()
+    df = connector.extract_data('loan_payments')
+    connector.save_data(df, 'loan_payments.csv')
+    print("Data extraction and saving completed")
+
     data_frame = load_data_from_csv('loan_payments.csv')
 
 
-        
+
+
