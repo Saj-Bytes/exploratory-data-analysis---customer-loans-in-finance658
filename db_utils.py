@@ -9,9 +9,7 @@ def loading_credentials(filepath):
 
 
 class RDSDatabaseConnector:
-    '''
-    Initialise connection with database
-    '''
+    ''' Initialise connection with database '''
     def __init__(self, credentials):
         self.host = credentials['RDS_HOST']
         self.password = credentials['RDS_PASSWORD']
@@ -22,9 +20,7 @@ class RDSDatabaseConnector:
 
     #Step 5    
     def initialise_engine(self):
-        '''
-        Uses a connection string that SQLAlchemy uses to connect to the db
-        '''
+        ''' Uses a connection string that SQLAlchemy uses to connect to the db '''
         connection_string = (
             f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
         )
@@ -33,9 +29,7 @@ class RDSDatabaseConnector:
 
     #Step 6
     def extract_data(self, table_name):
-        '''
-        extracts data from the db and returns as a df
-        '''
+        ''' Extracts data from the db and returns as a df '''
         if self.engine is None:
             self.initialise_engine()
 
@@ -47,17 +41,13 @@ class RDSDatabaseConnector:
 
     #Step 7
     def save_data(self, df, file_path):
-        '''
-        Saves data to local machine in csv format
-        '''
+        ''' Saves data to local machine in csv format '''
         df.to_csv(file_path, index=False)
         print(f"Data saved to {file_path}")
 
 
 def load_data_from_csv(file_path):
-    '''
-    Load data from local csv file into pandas df
-    '''
+    ''' Load data from local csv file into pandas df '''
     df = pd.read_csv(file_path)
     print(f"Data shape: {df.shape}")
 
