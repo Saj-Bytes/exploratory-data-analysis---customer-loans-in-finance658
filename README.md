@@ -1,63 +1,45 @@
-Exploratory Data Analysis
+# Exploratory Data Analysis
 
-Description:
-What does it do? 
-Aim of the project?
-What did I learn?
+## Description:
+- This project demonstrates how to extract and save a dataset from AWS database and load it as a pandas dataframe for Exploratary Data Analysis (EDA).
+- The dataset is extracted using RDSDatabaseConnector class in db_utils.py using secret credentials. 
+- The dataset is part of the repository and can be used for a further manipulation and EDA.
 
-Installation instructions
-Packages that need to be installed:
+## Installation Instructions
+To run the project locally you can clone the project using git. 
+
+https://github.com/Saj-Bytes/exploratory-data-analysis---customer-loans-in-finance658.git
+
+
+## Usage Instructions
+- Once project is cloned, open in your preferred IDE e.g. VS Code 
+- No need to run the db_utils.py file as AWS credentials are needed
+- db_util.py only shows how to download the dataset from a AWS Database
+- 'loan_payments.csv' is the file from the database, which can be explored within this repository.
+
+---
+## File Structure of the Project
+1.  db_utils.py - used to connect to the AWS database and return the dataset
+
+2. data_transform.py - 3 classes - used to apply transformations to the dataset
+3. dataframe_info.py - used to help get information about the dataframe
+4. eda_nb.ipynb - main file using jupyter notebook. EDA steps are explained and provides output for each step. Notebook easier to see outputs without running entire python scripts.
+
+5. df_cleaned.pkl - Cleaned dataset after steps from 'eda_nb.ipynb' are complete.
+
+6. loan_payments.csv - Initial dataset loaded in from AWS database
+
+7. transformed_df.csv - Database after nulls have been removed. Before any transformations have been applied onto dataframe.
+
+
+## Packages that need to be installed:
 - pyYAML: pip install PyYAML
 - SQLAlchemy: pip install sqlachemy
 - pandas: pip install pandas
-
-File structure of the project
-db_utils.py
-- main code to connect and extract data from database
-credentials.yaml
-- credentials required to connect with the database
-
-
-Function 1 - loading_credentials(filepath)
-- loads the credentials from the 'credentials.yaml' file
-- credentials allow us to connect to the db
-- then load the yaml file as a dictionary
-
-
-Class - RDSDatabaseConnector
-    - Class contains method that will be used to initialise connection with database and extract data
-
-- Class function 1: __init__(self, credentials)
-    - initialises credentials into local variables
-    - takes a dictionary of the AWS database credentials as a parameter
-
-- Class function 2: initialise_engine(self)
-    - creates a connection string required for SQLAlchemy to connect to database 
-    - connection string has to be in a certain format
-    - we use the create_engine() function from SQLAlchemy using the connection string to connect and manage database
-    - this engine object with pandas library allows us to extract data from the database
-
-
-- Class Function 3: extract_data(self, table_name)
-    - takes database table_name as a parameter
-    - checks if the engine object is initialised
-    - engine object is required to connect to the database
-    - then adds a SQL query to return all the data from the database table and uses pandas to turn it into a dataframe
-    - SQL commands have to be written inside a string in python
-
-- Class Function 4: save_data(self, df, file_path)
-    - saves data from table in csv format
-
-
-Function 2 - load_data_from_csv(file_path)
-- Loads data from the csv file into a pandas dataframe 
-- Prints shape and head of dataframe
-
-Running db_utils.py
-- using 'if __name__ == "__main__" makes sure it only runs when this file is ran, it does not if this file is imported
-- loads the credentials from the YAML file
-- creates a RDSDatabaseConnector object with these credentials 
-- uses the intialise_engine to connect with the database on this object
-- extracts the data from the table and saves into a pandas dataframe
-- loads the data into a dataframe and prints some of the data
-
+- numpy: pip install numpy
+- scipy: pip install scipy
+- seaborn: pip install seaborn
+- plotly: pip install plotly
+- statsmodels: pip install statsmodels 
+- scikit-learn: pip install scikit-learn
+- missingno: pip install missingno

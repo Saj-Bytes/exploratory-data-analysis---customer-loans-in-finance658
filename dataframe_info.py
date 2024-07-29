@@ -1,6 +1,7 @@
 import pandas as pd
 
 class DataframeInfo:
+    '''Class with different methods to get information about the dataframe'''
     def __init__(self, dataframe):
         self.df = dataframe
     
