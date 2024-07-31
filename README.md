@@ -4,6 +4,9 @@
 - This project demonstrates how to extract and save a dataset from AWS database and load it as a pandas dataframe for Exploratary Data Analysis (EDA).
 - The dataset is extracted using RDSDatabaseConnector class in db_utils.py using secret credentials. 
 - The dataset is part of the repository and can be used for a further manipulation and EDA.
+- The dataset is first cleaned and transformed to remove all null values.
+- We then remove any columns with based on skew and correlation, applying EDA concepts.
+- Analysis is then applied on the dataset, in order to draw insights from the data.
 
 ## Installation Instructions
 To run the project locally you can clone the project using git. 
@@ -22,7 +25,9 @@ https://github.com/Saj-Bytes/exploratory-data-analysis---customer-loans-in-finan
 1.  db_utils.py - used to connect to the AWS database and return the dataset
 
 2. data_transform.py - 3 classes - used to apply transformations to the dataset
+
 3. dataframe_info.py - used to help get information about the dataframe
+
 4. eda_nb.ipynb - main file using jupyter notebook. EDA steps are explained and provides output for each step. Notebook easier to see outputs without running entire python scripts.
 
 5. df_cleaned.pkl - Cleaned dataset after steps from 'eda_nb.ipynb' are complete.
@@ -31,6 +36,7 @@ https://github.com/Saj-Bytes/exploratory-data-analysis---customer-loans-in-finan
 
 7. transformed_df.csv - Database after nulls have been removed. Before any transformations have been applied onto dataframe.
 
+8. data_analysis.ipynb - Data analysis performed for Milestone 4. Reads the pkl file and performs the analysis.
 
 ## Packages that need to be installed:
 - pyYAML: pip install PyYAML
